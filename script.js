@@ -4,42 +4,65 @@ const rockBtn = document.getElementById('rock');
 const computerChoiceDisplay = document.getElementById('computerChoiceDisplay');
 const scoreDisplay = document.getElementById('scoreDisplay');
 const computerScoreDisplay = document.getElementById("computerScoreDisplay");
-const humanScoreDisplay = document.getElementById("humanScoreDisplay");
+const userScoreDisplay = document.getElementById("userScoreDisplay");
+const endGameBtn = document.getElementById("endGame");
 
-let humanScore = 0;
+let userScore = 0;
 let computerScore = 0;
+let rounds = 0;
 
 // GET computer random choice
-const getComputerChoice = () => {
-  choices = ['Rock', 'Paper', 'Scissors'];
+const computerRandomChoice = () => {
+  const choices = ["Rock", "Paper", "Scissors"];
   return choices[Math.floor(Math.random() * choices.length)];
 }
 
 // EVALUATE Choices
-const evalChoices = (humanChoice, computerChoice) => {
-  if (humanChoice === computerChoice) {
-    scoreDisplay.innerHTML = '<b>Tie! 🪢</b>';
+const calcWinner = (userChoice, computerChoice) => {
+
+  if (userChoice === computerChoice) {
+    scoreDisplay.innerHTML = `<b>Tie</b>! 🤝 `;
   } else if (
-    (humanChoice === 'Rock' && computerChoice === 'Scissors') ||
-    (humanChoice === 'Paper' && computerChoice === 'Rock') ||
-    (humanChoice === 'Scissors' && computerChoice === 'Paper')
+    (userChoice === "Scissors" && computerChoice === "Paper") ||
+    (userChoice === "Paper" && computerChoice === "Rock") ||
+    (userChoice === "Rock" && computerChoice === "Scissors")
   ) {
-    humanScore++;
-    scoreDisplay.innerHTML = '<b>You</b> win! 🔥';
+    userScore++;
+    scoreDisplay.innerHTML = `<b>You</b> win! 🔥`;
   } else {
     computerScore++;
-    scoreDisplay.innerHTML = '<b>Computer</b> win! 🤖';
+    scoreDisplay.innerHTML = `<b>Computer</b> wins! 🤖`;
   }
 
-  humanScoreDisplay.innerHTML = `🧘 Your score: <b>${humanScore}</b>`;
+  userScoreDisplay.innerHTML = `🧘 Your score: <b>${userScore}</b>`;
   computerScoreDisplay.innerHTML = `💻️ Computer score: <b>${computerScore}</b>`;
+
+  rounds++;
+  if (rounds >= 5) {
+    endGame(); // Call the endGame function
+  }
 }
 
 // GET user choice
-const getChoice = (choice) => {
-  const computerChoice = getComputerChoice();
+const getChoice = (userChoice) => {
+  const computerChoice = computerRandomChoice();
+  computerChoiceDisplay.textContent = `Computer choice is ${computerChoice}`;
+  calcWinner(userChoice, computerChoice);
+}
 
-  evalChoices(choice, computerChoice);
+// END GAME
+const endGame = () => {
+  scissorsBtn.disabled = true;
+  paperBtn.disabled = true;
+  rockBtn.disabled = true;
+
+  if (userScore > computerScore) {
+    scoreDisplay.innerHTML = `<b>You</b> won the game! 🎉`;
+  } else if (userScore < computerScore) {
+    scoreDisplay.innerHTML = `<b>Computer</b> won the game! 🤖`;
+  } else {
+    scoreDisplay.innerHTML = `<b>Tie</b> Game! 🤝 `;
+  }
 }
 
 scissorsBtn.addEventListener("click", () => getChoice("Scissors"));
