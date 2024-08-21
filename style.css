@@ -1,0 +1,20 @@
+:root {
+  --primary-color: rgba(214, 83, 23, 0.9);
+  --secondary-color: rgba(255, 255, 255, 0.9);
+}
+
+body {
+  margin: 0 25%;
+  text-align: center;
+}
+
+button {
+  margin: 5px;
+  padding: 8px 16px;
+  background-color: var(--primary-color);
+  border-radius: 5px;
+  color: white;
+  font-size: 1.2rem;
+  border: none;
+  cursor: pointer;
+}
