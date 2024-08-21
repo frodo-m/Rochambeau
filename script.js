@@ -18,7 +18,7 @@ const getComputerChoice = () => {
 // EVALUATE Choices
 const evalChoices = (humanChoice, computerChoice) => {
   if (humanChoice === computerChoice) {
-    scoreDisplay.innerHTML = '<b>Tie!</b>';
+    scoreDisplay.innerHTML = '<b>Tie! 🪢</b>';
   } else if (
     (humanChoice === 'Rock' && computerChoice === 'Scissors') ||
     (humanChoice === 'Paper' && computerChoice === 'Rock') ||
@@ -31,8 +31,8 @@ const evalChoices = (humanChoice, computerChoice) => {
     scoreDisplay.innerHTML = '<b>Computer</b> win! 🤖';
   }
 
-  humanScoreDisplay.innerHTML = `Your score: <b>${humanScore}</b>`;
-  computerScoreDisplay.innerHTML = `Computer score: <b>${computerScore}</b>`;
+  humanScoreDisplay.innerHTML = `🧘 Your score: <b>${humanScore}</b>`;
+  computerScoreDisplay.innerHTML = `💻️ Computer score: <b>${computerScore}</b>`;
 }
 
 // GET user choice
