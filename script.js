@@ -32,7 +32,7 @@ const evalChoices = (humanChoice, computerChoice) => {
   }
 
   humanScoreDisplay.innerHTML = `Your score: <b>${humanScore}</b>`;
-  computerScoreDisplay.innerHTML = `Your score: <b>${computerScore}</b>`;
+  computerScoreDisplay.innerHTML = `Computer score: <b>${computerScore}</b>`;
 }
 
 // GET user choice
