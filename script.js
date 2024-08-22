@@ -48,6 +48,7 @@ const calcChoices = (userChoice) => {
 
   if (rounds === MAX_ROUNDS) {
     displayScore();
+    disableButtons();
   }
 };
 
@@ -86,10 +87,26 @@ const resetGame = () => {
   resultDisplay.textContent = `Result: `;
   resultDisplay.className = '';
 
+  enableButtons();
+
   rockBtn.addEventListener('click', initGame);
   paperBtn.addEventListener('click', initGame);
   scissorsBtn.addEventListener('click', initGame);
 };
+
+// Add disableButtons function
+const disableButtons = () => {
+  rockBtn.classList.add('button-disabled');
+  paperBtn.classList.add('button-disabled');
+  scissorsBtn.classList.add('button-disabled');
+};
+
+const enableButtons = () => {
+  rockBtn.classList.remove('button-disabled');
+  paperBtn.classList.remove('button-disabled');
+  scissorsBtn.classList.remove('button-disabled');
+};
+
 
 rockBtn.addEventListener('click', initGame);
 paperBtn.addEventListener('click', initGame);

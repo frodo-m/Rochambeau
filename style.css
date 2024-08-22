@@ -32,7 +32,6 @@ button {
 
 button:hover {
   background-color: #007bff;
-  color: red;
 }
 
 #rock {
@@ -75,6 +74,17 @@ button:hover {
 
 .final-result.tie {
   color: #ffc107;
+}
+
+.button-disabled {
+  /* Light gray */
+  background-color: #d3d3d3;
+  /* Darker gray text */
+  color: #a9a9a9;
+  /* Show a not-allowed cursor */
+  cursor: not-allowed;
+  /* Optional: add border */
+  border: 1px solid #a9a9a9;
 }
 
 /* Responsive Design */
