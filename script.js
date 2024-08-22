@@ -1,70 +1,97 @@
-const scissorsBtn = document.getElementById('scissors');
-const paperBtn = document.getElementById('paper');
-const rockBtn = document.getElementById('rock');
-const computerChoiceDisplay = document.getElementById('computerChoiceDisplay');
-const scoreDisplay = document.getElementById('scoreDisplay');
-const computerScoreDisplay = document.getElementById("computerScoreDisplay");
-const userScoreDisplay = document.getElementById("userScoreDisplay");
-const endGameBtn = document.getElementById("endGame");
+// Take inputs
+const rockBtn = document.getElementById("rock");
+const paperBtn = document.getElementById("paper");
+const scissorsBtn = document.getElementById("scissors");
+const resetBtn = document.getElementById("reset");
+
+// Post outputs
+const scoreDisplay = document.getElementById("score");
+const roundsDisplay = document.getElementById("rounds");
+const resultDisplay = document.getElementById("result");
 
 let userScore = 0;
 let computerScore = 0;
 let rounds = 0;
+const MAX_ROUNDS = 5;
 
-// GET computer random choice
-const computerRandomChoice = () => {
-  const choices = ["Rock", "Paper", "Scissors"];
+// Generate computer choice
+const getComputerChoice = () => {
+  const choices = ['rock', 'paper', 'scissors'];
   return choices[Math.floor(Math.random() * choices.length)];
-}
+};
 
-// EVALUATE Choices
-const calcWinner = (userChoice, computerChoice) => {
+// Evaluate the choices
+const calcChoices = (userChoice) => {
+  let computerChoice = getComputerChoice();
+  let result;
 
   if (userChoice === computerChoice) {
-    scoreDisplay.innerHTML = `<b>Tie</b>! 🤝 `;
+    result = `It's a Tie! 🤝 Both chose ${userChoice}`;
+    updateResultDisplay(result, 'tie');
   } else if (
-    (userChoice === "Scissors" && computerChoice === "Paper") ||
-    (userChoice === "Paper" && computerChoice === "Rock") ||
-    (userChoice === "Rock" && computerChoice === "Scissors")
+    (userChoice === 'rock' && computerChoice === 'scissors') ||
+    (userChoice === 'paper' && computerChoice === 'rock') ||
+    (userChoice === 'scissors' && computerChoice === 'paper')
   ) {
     userScore++;
-    scoreDisplay.innerHTML = `<b>You</b> win! 🔥`;
+    result = `You Win! 🔥 You chose ${userChoice}, Computer chose ${computerChoice}`;
+    updateResultDisplay(result, 'won');
   } else {
     computerScore++;
-    scoreDisplay.innerHTML = `<b>Computer</b> wins! 🤖`;
+    result = `Computer Wins! 🤖 You chose ${userChoice}, Computer chose ${computerChoice}`;
+    updateResultDisplay(result, 'lost');
   }
-
-  userScoreDisplay.innerHTML = `🧘 Your score: <b>${userScore}</b>`;
-  computerScoreDisplay.innerHTML = `💻️ Computer score: <b>${computerScore}</b>`;
 
   rounds++;
-  if (rounds >= 5) {
-    endGame(); // Call the endGame function
+  scoreDisplay.innerHTML = `Score: You ${userScore} - Computer ${computerScore}`;
+  roundsDisplay.innerHTML = `Rounds: ${rounds}/${MAX_ROUNDS}`;
+
+  if (rounds === MAX_ROUNDS) {
+    displayScore();
   }
-}
+};
 
-// GET user choice
-const getChoice = (userChoice) => {
-  const computerChoice = computerRandomChoice();
-  computerChoiceDisplay.textContent = `Computer choice is ${computerChoice}`;
-  calcWinner(userChoice, computerChoice);
-}
+// Update display and CSS
+const updateResultDisplay = (message, className) => {
+  resultDisplay.innerHTML = message;
+  resultDisplay.className = `final-result ${className}`;
+};
 
-// END GAME
-const endGame = () => {
-  scissorsBtn.disabled = true;
-  paperBtn.disabled = true;
-  rockBtn.disabled = true;
+const initGame = (e) => {
+  const userChoice = e.target.id;
+  calcChoices(userChoice);
+};
 
+const displayScore = () => {
   if (userScore > computerScore) {
-    scoreDisplay.innerHTML = `<b>You</b> won the game! 🎉`;
+    updateResultDisplay(`Final Result: You won the game! 🎉`, 'won');
   } else if (userScore < computerScore) {
-    scoreDisplay.innerHTML = `<b>Computer</b> won the game! 🤖`;
+    updateResultDisplay(`Final Result: Computer won the game! 🤖`, 'lost');
   } else {
-    scoreDisplay.innerHTML = `<b>Tie</b> Game! 🤝 `;
+    updateResultDisplay(`Final Result: It's a Tie! 🤝`, 'tie');
   }
-}
 
-scissorsBtn.addEventListener("click", () => getChoice("Scissors"));
-rockBtn.addEventListener("click", () => getChoice("Rock"));
-paperBtn.addEventListener("click", () => getChoice("Paper"));
+  rockBtn.removeEventListener('click', initGame);
+  paperBtn.removeEventListener('click', initGame);
+  scissorsBtn.removeEventListener('click', initGame);
+};
+
+const resetGame = () => {
+  userScore = 0;
+  computerScore = 0;
+  rounds = 0;
+
+  scoreDisplay.innerHTML = `Score: You ${userScore} - Computer ${computerScore}`;
+  roundsDisplay.innerHTML = `Rounds: ${rounds}/${MAX_ROUNDS}`;
+  resultDisplay.textContent = `Result: `;
+  resultDisplay.className = '';
+
+  rockBtn.addEventListener('click', initGame);
+  paperBtn.addEventListener('click', initGame);
+  scissorsBtn.addEventListener('click', initGame);
+};
+
+rockBtn.addEventListener('click', initGame);
+paperBtn.addEventListener('click', initGame);
+scissorsBtn.addEventListener('click', initGame);
+resetBtn.addEventListener('click', resetGame);

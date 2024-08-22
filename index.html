@@ -4,25 +4,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Rochambeau</title>
+  <title>Rock-Paper-Scissors Game</title>
   <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <h1>Rochambeau</h1>
+  <div class="game-container">
+    <button id="rock">Rock</button>
+    <button id="paper">Paper</button>
+    <button id="scissors">Scissors</button>
+    <button id="reset">Reset</button>
 
-  <button id="rock">Rock 🪨</button>
-  <button id="paper">Paper 📄</button>
-  <button id="scissors">Scissors ✂️</button>
-  <p id="computerChoiceDisplay"></p>
-  <p id="userScoreDisplay"></p>
-  <p id="computerScoreDisplay"></p>
-
-  <p id="scoreDisplay"></p>
-
-  <script src="./script.js"></script>
-
-
+    <div id="score">Score: You 0 - Computer 0</div>
+    <div id="rounds">Round: 0/5</div>
+    <div id="result">Result: </div>
+  </div>
+  <script src="script.js"></script>
 </body>
 
 </html>
